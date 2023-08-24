@@ -19,6 +19,7 @@ var (
 type LogConfig struct {
 	Level  string `yaml:"level"`
 	Folder string `yaml:"folder"`
+	Format string `yaml:"format"`
 }
 
 func Init(config LogConfig, logo string) {
@@ -32,15 +33,27 @@ func Init(config LogConfig, logo string) {
 	logrus.SetOutput(output())
 	logrus.SetLevel(level())
 	logrus.SetReportCaller(true)
-	logrus.SetFormatter(&logrus.JSONFormatter{
-		FieldMap: logrus.FieldMap{
-			logrus.FieldKeyTime:  "ztimestamp",
-			logrus.FieldKeyLevel: "zlevel",
-			logrus.FieldKeyMsg:   "@message",
-			logrus.FieldKeyFunc:  "zcaller",
-			logrus.FieldKeyFile:  "zfile",
-		},
-	})
+
+	fieldMap := logrus.FieldMap{
+		logrus.FieldKeyTime:  "ztimestamp",
+		logrus.FieldKeyLevel: "zlevel",
+		logrus.FieldKeyMsg:   "@message",
+		logrus.FieldKeyFunc:  "zcaller",
+		logrus.FieldKeyFile:  "zfile",
+	}
+
+	switch config.Format {
+	case "json":
+		logrus.SetFormatter(&logrus.JSONFormatter{
+			FieldMap: fieldMap,
+		})
+	default:
+		logrus.SetFormatter(&logrus.TextFormatter{
+			ForceColors:      true,
+			DisableTimestamp: true,
+			FieldMap:         fieldMap,
+		})
+	}
 
 	// logrus.AddHook(&LogHook{})
 	logrus.Info("init logrus done")

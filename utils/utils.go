@@ -83,6 +83,11 @@ func TodayDateStr() string {
 	return fmt.Sprintf("%04d-%02d-%02d", now.Year(), now.Month(), now.Day())
 }
 
+func TodayBegin() time.Time {
+	t := time.Now()
+	return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+}
+
 func TomorrowDateStr() string {
 	t := time.Now().Add(time.Hour * 24)
 	return fmt.Sprintf("%04d-%02d-%02d", t.Year(), t.Month(), t.Day())
@@ -102,6 +107,10 @@ func BeginningOfMonth(date time.Time) time.Time {
 // BeginnigOfNextMonth return the end of the month of t
 func BeginnigOfNextMonth(date time.Time) time.Time {
 	return BeginningOfMonth(date).AddDate(0, 1, 0)
+}
+
+func EarlistDate() time.Time {
+	return time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC)
 }
 
 func UintPtrToBig(val *uint) *big.Int {
@@ -245,4 +254,26 @@ func MapSlice[T any, R any](items []T, mapFunc func(item T) (R, error)) ([]R, er
 		result = append(result, r)
 	}
 	return result, nil
+}
+
+func MustMapSlice[T any, R any](items []T, mapFunc func(item T) R) []R {
+	fn := func(item T) (R, error) {
+		return mapFunc(item), nil
+	}
+	return Must(MapSlice(items, fn))
+}
+
+func GetMapKeys[KT comparable, VT any](value map[KT]VT) []KT {
+	keys := make([]KT, 0, len(value))
+	for k := range value {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+func Must[T any](val T, err error) T {
+	if err != nil {
+		panic(err)
+	}
+	return val
 }
