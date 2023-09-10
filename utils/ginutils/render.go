@@ -26,9 +26,9 @@ func SuccessResponse() gin.H {
 	}
 }
 
-type ListResponse struct {
-	Count int64       `json:"count"`
-	Items interface{} `json:"items"`
+type List[T any] struct {
+	Count int64 `json:"count"`
+	Items []T   `json:"items"`
 }
 
 func RenderResp(c *gin.Context, data interface{}, err error) {
@@ -39,12 +39,12 @@ func RenderResp(c *gin.Context, data interface{}, err error) {
 	RenderRespOK(c, data)
 }
 
-func RenderListResp(c *gin.Context, count int64, items interface{}, err error) {
+func RenderListResp[T any](c *gin.Context, count int64, items []T, err error) {
 	if err != nil {
 		RenderRespError(c, err, 500)
 		return
 	}
-	RenderRespOK(c, ListResponse{Count: count, Items: items})
+	RenderRespOK(c, List[T]{Count: count, Items: items})
 }
 
 func RenderRespOK(c *gin.Context, data interface{}, httpStatusCode ...int) {
