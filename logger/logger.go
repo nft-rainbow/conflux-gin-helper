@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/sirupsen/logrus"
-	"github.com/spf13/viper"
 )
 
 var (
@@ -97,10 +96,10 @@ func output() io.Writer {
 }
 
 func level() logrus.Level {
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
-	}
+	// err := viper.ReadInConfig()
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	lvl := logConfig.Level
 	level, err := logrus.ParseLevel(lvl)

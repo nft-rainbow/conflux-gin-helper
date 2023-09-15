@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"time"
 
@@ -11,9 +12,18 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func Logger(ignoredPaths []string) gin.HandlerFunc {
+type LogOptions struct {
+	IgnoredPaths []string
+	HeaderLogger func(headers http.Header) interface{}
+}
+
+func Logger(logOption *LogOptions) gin.HandlerFunc {
+	if logOption == nil {
+		logOption = &LogOptions{}
+	}
+
 	var _ignoredPaths = make(map[string]bool)
-	for _, v := range ignoredPaths {
+	for _, v := range logOption.IgnoredPaths {
 		_ignoredPaths[v] = true
 	}
 
@@ -65,6 +75,10 @@ func Logger(ignoredPaths []string) gin.HandlerFunc {
 			"body":           string(body),
 			"content length": c.Request.ContentLength,
 		})
+
+		if logOption.HeaderLogger != nil {
+			entry = entry.WithField("header", logOption.HeaderLogger(c.Request.Header))
+		}
 
 		if param.ErrorMessage != "" {
 			entry = entry.
