@@ -50,7 +50,7 @@ func CheckCfxAddress(chain string, addr string) (*cfxaddress.Address, error) {
 		return nil, err
 	}
 	if addrItem.GetNetworkID() != uint32(chainId) {
-		return nil, fmt.Errorf("invalid conflux network address, want %v, got %v", addrItem.GetNetworkID(), uint32(chainId))
+		return nil, fmt.Errorf("invalid conflux network address, want %v, got %v", uint32(chainId), addrItem.GetNetworkID())
 	}
 	return &addrItem, nil
 }

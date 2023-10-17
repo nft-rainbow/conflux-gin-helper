@@ -58,6 +58,21 @@ func Init(config LogConfig, logo string) {
 	logrus.Info("init logrus done")
 }
 
+func AsyncRefreshOutputDaily() {
+	logrus.Info("start task for refreshing log output file")
+	go func() {
+		for {
+			dateStr := time.Now().Format("01-02-2006")
+			today, _ := time.Parse("01-02-2006", dateStr)
+			tommorow := today.Add(time.Hour * 24)
+			remains := time.Until(tommorow)
+			logrus.Infof("sleep %v to refresh log output", remains)
+			time.Sleep(remains)
+			RefreshOutput()
+		}
+	}()
+}
+
 func RefreshOutput() {
 	logrus.SetOutput(output())
 }
