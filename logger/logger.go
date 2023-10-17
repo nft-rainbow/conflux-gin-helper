@@ -55,10 +55,11 @@ func Init(config LogConfig, logo string) {
 	}
 
 	// logrus.AddHook(&LogHook{})
+	asyncRefreshOutputDaily()
 	logrus.Info("init logrus done")
 }
 
-func AsyncRefreshOutputDaily() {
+func asyncRefreshOutputDaily() {
 	logrus.Info("start task for refreshing log output file")
 	go func() {
 		for {
