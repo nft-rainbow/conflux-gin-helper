@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"math/rand"
 	"runtime/debug"
+	"strings"
 	"time"
 
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -196,7 +197,7 @@ func MapHexAddressesToCfxAddressesStr(addrs []common.Address, networkId uint32) 
 }
 
 func CompactFormatTime(t time.Time) string {
-	return t.Format("20060102150405")
+	return strings.Replace(t.Format("20060102150405.000000"), ".", "", 1)
 }
 
 func RandomNumber(min, max int) int {
