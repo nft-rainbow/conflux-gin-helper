@@ -11,7 +11,7 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.15.0
 	github.com/h2non/filetype v1.1.3
-	github.com/openweb3/go-rpc-provider v0.3.1
+	github.com/openweb3/go-rpc-provider v0.3.2-0.20221114112151-75e1d1f734f9
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/ulule/limiter/v3 v3.11.2
