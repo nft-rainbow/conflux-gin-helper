@@ -13,8 +13,9 @@ import (
 )
 
 type LogOptions struct {
-	IgnoredPaths []string
-	HeaderLogger func(headers http.Header) interface{}
+	IgnoredPaths     []string
+	ReqHeaderLogger  func(headers http.Header) interface{}
+	RespHeaderLogger func(headers http.Header) interface{}
 }
 
 func Logger(logOption *LogOptions) gin.HandlerFunc {
@@ -76,8 +77,12 @@ func Logger(logOption *LogOptions) gin.HandlerFunc {
 			"content length": c.Request.ContentLength,
 		})
 
-		if logOption.HeaderLogger != nil {
-			entry = entry.WithField("header", logOption.HeaderLogger(c.Request.Header))
+		if logOption.ReqHeaderLogger != nil {
+			entry = entry.WithField("req header", logOption.ReqHeaderLogger(c.Request.Header))
+		}
+
+		if logOption.RespHeaderLogger != nil {
+			entry = entry.WithField("resp header", logOption.ReqHeaderLogger(c.Writer.Header()))
 		}
 
 		if param.ErrorMessage != "" {
