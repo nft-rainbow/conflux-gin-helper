@@ -42,13 +42,13 @@ func DingText(level alert.Severity, brief, detail string) error {
 	title := "info"
 	switch level {
 	case alert.SeverityLow:
-		title = "info"
+		title = "INFO"
 	case alert.SeverityMedium:
-		title = "warn"
+		title = "WARN"
 	case alert.SeverityHigh:
-		title = "error"
+		title = "ERROR"
 	case alert.SeverityCritical:
-		title = "critical"
+		title = "PANIC"
 	}
 
 	return ch.Send(context.Background(), &alert.Notification{
