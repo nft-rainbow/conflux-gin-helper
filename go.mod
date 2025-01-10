@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/Conflux-Chain/go-conflux-sdk v1.5.8
-	github.com/Conflux-Chain/go-conflux-util v0.1.0
+	github.com/Conflux-Chain/go-conflux-util v0.2.1
 	github.com/appleboy/gin-jwt/v2 v2.9.1
 	github.com/ethereum/go-ethereum v1.10.15
 	github.com/fatih/color v1.13.0
@@ -35,6 +35,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/go-telegram/bot v1.2.2 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
@@ -54,7 +55,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
-	github.com/royeo/dingrobot v1.0.1-0.20191230075228-c90a788ca8fd // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
