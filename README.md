@@ -1,0 +1,1 @@
+# Warn: this repo is deprecated, please use https://github.com/nft-rainbow/rainbow-goutils instead.
